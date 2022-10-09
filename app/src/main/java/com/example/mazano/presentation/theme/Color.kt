@@ -1,4 +1,4 @@
-package com.example.mazano.ui.theme
+package com.example.mazano.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
