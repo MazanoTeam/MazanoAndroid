@@ -4,10 +4,7 @@ package com.example.mazano.presentation.ui.auth
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -25,11 +22,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.mazano.R
 import com.example.mazano.presentation.theme.*
+import com.example.mazano.presentation.ui.auth.sign_in.SignInScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun AuthScreen(navController: NavController, modifier: Modifier) {
+fun AuthGeneralScreen(navController: NavController) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
     val tabTitles = arrayListOf(
@@ -41,7 +39,7 @@ fun AuthScreen(navController: NavController, modifier: Modifier) {
             .background(Blue26)
     ) {
         AuthTabs(pagerState, scope, tabTitles)
-        PagerSection(pagerState, tabTitles)
+        PagerSection(pagerState, tabTitles, navController)
     }
 }
 
@@ -58,31 +56,41 @@ fun AuthTabs(pagerState: PagerState, scope: CoroutineScope, tabs: ArrayList<Stri
             )
         }) {
         tabs.forEachIndexed { index, text ->
-            Tab(selected = index == pagerState.currentPage,
-                onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(index)
-                    }
-                },
-                text = { Text(text = text, style = Bold14WithoutColor) },
-                selectedContentColor = YellowFF,
-                unselectedContentColor = GrayC5
+            Tab(selected = index == pagerState.currentPage, onClick = {
+                scope.launch {
+                    pagerState.animateScrollToPage(index)
+                }
+            }, text = {
+                Text(
+                    text = text,
+                    style = Bold14WithoutColor,
+                    modifier = Modifier.padding(vertical = 10.dp)
+                )
+            }, selectedContentColor = YellowFF, unselectedContentColor = GrayC5
             )
         }
     }
 }
 
 @Composable
-fun PagerSection(pagerState: PagerState, pages: ArrayList<String>) {
+fun PagerSection(pagerState: PagerState, pages: ArrayList<String>, navController: NavController) {
     HorizontalPager(
-        pageCount = pages.size, state = pagerState, modifier = Modifier.fillMaxSize()
+        pageCount = pages.size,
+        state = pagerState,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 30.dp)
     ) {
         when (it) {
             0 -> {
-                TestScreen(text = "0")
+                SignInScreen(
+                    navController = navController,
+                    modifier = Modifier.padding(horizontal = 10.dp),
+                    pagerState
+                )
             }
             1 -> {
-                TestScreen(text = "2")
+                TestScreen(text = "1")
             }
         }
     }
@@ -95,6 +103,6 @@ fun TestScreen(text: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    AuthScreen(rememberNavController(), Modifier)
+fun AuthGeneralPreview() {
+    AuthGeneralScreen(rememberNavController())
 }

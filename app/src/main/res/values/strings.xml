@@ -7,4 +7,11 @@
     <string name="continue_with_google">Continue with Google</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="dont_have_account">\"Don\'t have an account? \"</string>
+    <string name="create_one">Create one</string>
 </resources>
