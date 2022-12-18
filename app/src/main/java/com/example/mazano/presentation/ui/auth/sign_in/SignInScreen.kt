@@ -1,29 +1,132 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.example.mazano.presentation.ui.auth.sign_in
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.mazano.R
+import com.example.mazano.presentation.components.dividers.OrDivider
+import com.example.mazano.presentation.components.input_fields.NameInputField
+import com.example.mazano.presentation.components.input_fields.PasswordInputField
+import com.example.mazano.presentation.theme.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navController: NavController, modifier: Modifier, pagerState: PagerState) {
+    val scope = rememberCoroutineScope()
     Column(
         Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = 10.dp)
+            .background(Blue26)
     ) {
-
+        TopSection(navController = navController, modifier = modifier)
+        BottomSection(modifier = modifier, pagerState, scope)
     }
 }
+
+@Composable
+fun TopSection(navController: NavController, modifier: Modifier) {
+    val nameText = remember { mutableStateOf("") }
+    val passwordText = remember { mutableStateOf("") }
+
+    NameInputField(modifier, stringResource(R.string.enter_name), nameText)
+    PasswordInputField(
+        modifier.padding(top = 15.dp), stringResource(R.string.enter_password), passwordText, true
+    )
+    OutlinedButton(
+        onClick = {},
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp),
+        colors = ButtonDefaults.outlinedButtonColors(containerColor = YellowFF),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+        Text(text = stringResource(id = R.string.sign_in), style = Bold14Black)
+    }
+    OrDivider(modifier.padding(top = 45.dp))
+}
+
+@Composable
+fun BottomSection(modifier: Modifier, pagerState: PagerState, scope: CoroutineScope) {
+    Column {
+        OutlinedButton(
+            onClick = {},
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(top = 55.dp),
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = White),
+            shape = RoundedCornerShape(20.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 2.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_google),
+                    contentDescription = null,
+                    modifier = Modifier.align(
+                        Alignment.CenterStart
+                    )
+                )
+                Text(
+                    text = stringResource(id = R.string.continue_with_google),
+                    style = Bold14Black2F,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 70.dp)
+        ) {
+            Text(text = stringResource(R.string.dont_have_account), style = Bold14GrayC5)
+            ClickableText(text = buildAnnotatedString {
+                append(stringResource(R.string.create_one))
+            }, onClick = {
+                scope.launch {
+                    pagerState.animateScrollToPage(1)
+                }
+            }, style = Bold14Yellow
+            )
+        }
+    }
+
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInScreen()
+    SignInScreen(
+        rememberNavController(), Modifier.padding(horizontal = 10.dp), rememberPagerState()
+    )
 }
