@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.mazano.R
+import com.example.mazano.common.exstensions.customTabIndicatorOffset
 import com.example.mazano.presentation.theme.*
 import com.example.mazano.presentation.ui.auth.create_account.CreateAccountScreen
 import com.example.mazano.presentation.ui.auth.sign_in.SignInScreen
@@ -46,14 +49,21 @@ fun AuthGeneralScreen(navController: NavController) {
 
 @Composable
 fun AuthTabs(pagerState: PagerState, scope: CoroutineScope, tabs: ArrayList<String>) {
-    TabRow(selectedTabIndex = pagerState.currentPage,
+    val tabWidths = remember { mutableStateListOf(60.dp, 110.dp) }
+    TabRow(
+        selectedTabIndex = pagerState.currentPage,
         containerColor = Blue26,
+        contentColor = Blue26,
+        divider = { Box {} },
         indicator = { tabPositions ->
             Box(
                 modifier = Modifier
-                    .tabIndicatorOffset(tabPositions[pagerState.currentPage])
+                    .customTabIndicatorOffset(
+                        tabPositions[pagerState.currentPage],
+                        tabWidths[pagerState.currentPage]
+                    )
                     .height(4.dp)
-                    .background(color = YellowFF)
+                    .background(color = YellowFF, shape = RoundedCornerShape(20.dp))
             )
         }) {
         tabs.forEachIndexed { index, text ->
