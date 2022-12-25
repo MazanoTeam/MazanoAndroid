@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -115,5 +117,43 @@ fun PasswordInputField(
                     .padding(top = 10.dp)
             )
         }
+    }
+}
+
+@Composable
+fun EmailInputField(modifier: Modifier, hintText: String, text: MutableState<String>) {
+    Column(modifier) {
+        Text(
+            text = stringResource(R.string.email),
+            style = Bold14White,
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(bottom = 5.dp)
+        )
+        OutlinedTextField(
+            value = text.value,
+            onValueChange = { value -> text.value = value },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = White,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent
+            ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            placeholder = {
+                Text(hintText, style = Bold14Gray74)
+            },
+            leadingIcon = {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_email),
+                    contentDescription = null,
+                    modifier = Modifier.size(14.dp)
+                )
+            },
+            singleLine = true,
+            textStyle = Bold14Black
+        )
     }
 }

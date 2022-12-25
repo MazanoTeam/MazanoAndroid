@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.mazano.R
 import com.example.mazano.presentation.theme.*
+import com.example.mazano.presentation.ui.auth.create_account.CreateAccountScreen
 import com.example.mazano.presentation.ui.auth.sign_in.SignInScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -90,7 +91,11 @@ fun PagerSection(pagerState: PagerState, pages: ArrayList<String>, navController
                 )
             }
             1 -> {
-                TestScreen(text = "1")
+                CreateAccountScreen(
+                    navController = navController,
+                    modifier = Modifier.padding(horizontal = 10.dp),
+                    pagerState = pagerState
+                )
             }
         }
     }
