@@ -1,3 +1,20 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Mazano</string>
+
+    <string name="sign_in">Sign in</string>
+    <string name="create_account">Create account</string>
+    <string name="or">or</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="enter_email">Enter your Email</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="dont_have_account">\"Don\'t have an account? \"</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="create_one">Create one</string>
 </resources>
