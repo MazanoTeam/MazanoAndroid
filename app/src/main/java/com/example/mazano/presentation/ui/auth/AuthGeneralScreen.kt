@@ -1,13 +1,10 @@
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 
 package com.example.mazano.presentation.ui.auth
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -27,6 +24,10 @@ import com.example.mazano.common.exstensions.customTabIndicatorOffset
 import com.example.mazano.presentation.theme.*
 import com.example.mazano.presentation.ui.auth.create_account.CreateAccountScreen
 import com.example.mazano.presentation.ui.auth.sign_in.SignInScreen
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -86,7 +87,7 @@ fun AuthTabs(pagerState: PagerState, scope: CoroutineScope, tabs: ArrayList<Stri
 @Composable
 fun PagerSection(pagerState: PagerState, pages: ArrayList<String>, navController: NavController) {
     HorizontalPager(
-        pageCount = pages.size,
+        count = pages.size,
         state = pagerState,
         modifier = Modifier
             .fillMaxSize()
@@ -109,11 +110,6 @@ fun PagerSection(pagerState: PagerState, pages: ArrayList<String>, navController
             }
         }
     }
-}
-
-@Composable
-fun TestScreen(text: String) {
-    Box(modifier = Modifier.fillMaxSize()) { Text(text = text) }
 }
 
 @Preview(showBackground = true)
