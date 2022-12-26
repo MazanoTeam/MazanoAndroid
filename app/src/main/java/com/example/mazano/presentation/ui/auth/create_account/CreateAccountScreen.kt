@@ -65,7 +65,7 @@ fun TopSection(navController: NavController, modifier: Modifier) {
     val passwordText = remember { mutableStateOf("") }
 
     NameInputField(modifier, stringResource(R.string.enter_name), nameText)
-    EmailInputField(modifier, stringResource(R.string.enter_email), emailText)
+    EmailInputField(modifier.padding(top = 15.dp), stringResource(R.string.enter_email), emailText)
     PasswordInputField(
         modifier.padding(top = 15.dp), stringResource(R.string.enter_password), passwordText, false
     )
