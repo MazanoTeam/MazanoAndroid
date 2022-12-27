@@ -1,5 +1,6 @@
 package com.example.mazano.presentation.theme
 
+import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -47,6 +48,12 @@ val Bold14Yellow = TextStyle(
 
 val Bold14Black2F = TextStyle(
     color = Color(0xFF2F2F2F),
+    fontSize = 14.sp,
+    fontStyle = FontStyle(R.font.montserrat_bold)
+)
+
+val Bold14Blue26 = TextStyle(
+    color = Color(0xFF262464),
     fontSize = 14.sp,
     fontStyle = FontStyle(R.font.montserrat_bold)
 )
