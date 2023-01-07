@@ -37,16 +37,16 @@ fun ProfileItem() {
                     .align(Alignment.TopEnd)
                     .padding(4.dp)
             ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_like_search_screen),
-                        contentDescription = null
-                    )
-                    Text(
-                        text = "666",
-                        fontSize = 8.sp,
-                        fontStyle = FontStyle.Italic,
-                        color = White
-                    )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_like_search_screen),
+                    contentDescription = null
+                )
+                Text(
+                    text = "666",
+                    fontSize = 8.sp,
+                    fontStyle = FontStyle.Italic,
+                    color = White
+                )
             }
         }
         Box(
